@@ -115,7 +115,7 @@ Download from:
 We select **XGBoost (raw features)** as the final model based on Top 1% return.
 
 ### Global Feature Importance
-
+### ✅ 正确
 ```markdown
 ![Global SHAP](figures/global_shap_bar.png)
 ```
