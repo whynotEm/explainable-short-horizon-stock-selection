@@ -1,25 +1,26 @@
-# explainable-short-horizon-stock-selection
+# Explainable Short-Horizon Stock Selection
 
-📌 Project Overview
+A machine learning framework for short-horizon stock selection, optimized for **Top-K return performance** and enhanced with **SHAP-based interpretability**.
 
-Explainable Short-Horizon Stock Selection
+---
 
-This project builds a machine learning pipeline for short-horizon stock selection, aiming to identify stocks with strong return potential over the next 5 trading days.
+## 📌 Project Overview
 
-Unlike traditional classification tasks, this project focuses on ranking performance (Top-K returns) rather than pure accuracy, and integrates SHAP-based interpretability to understand model decisions.
+This project builds a machine learning pipeline to identify stocks with strong return potential over the next 5 trading days.
 
-🎯 Objective
+Instead of focusing on classification accuracy alone, this project emphasizes:
 
-Given a set of technical features for each stock on each trading day, the goal is to predict whether the stock will achieve a positive return over the next 5 days:
+- Cross-sectional ranking
+- Top-K return performance
+- Model interpretability (SHAP)
 
-Target:
+---
 
+## 🎯 Objective
+
+Given a set of features for each stock on each trading day, predict whether the stock will achieve positive returns over the next 5 days.
+
+**Target definition:**
+
+```text
 regime_binary = 1 if r_future_5 > 0.01 else 0
-Train/Test split:
-Train: before 2023
-Test: after 2023
-🧠 Key Ideas
-Treat stock selection as a cross-sectional ranking problem
-Focus on Top-K return performance
-Compare multiple models under different preprocessing methods
-Use SHAP to interpret model behavior and validate financial intuition
