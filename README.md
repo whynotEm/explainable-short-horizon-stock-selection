@@ -3,7 +3,6 @@
 A machine learning framework for short-horizon stock selection, optimized for **Top-K return performance** and enhanced with **SHAP-based interpretability**.
 
 ---
-
 ## 📌 Project Overview
 
 This project builds a machine learning pipeline to identify stocks with strong return potential over the next 5 trading days.
@@ -44,22 +43,137 @@ regime_binary = 1 if r_future_5 > 0.01 else 0
 
 ## 📊 Dataset
 
+The dataset used in this project contains **7,167,829 observations** across **3,876 Chinese A-share stocks**, covering the period from **2016-10-17 to 2026-01-19** (2,251 trading days).
+
+Each row represents a **stock-day observation**, and the dataset is structured as a cross-sectional panel.
+
 The dataset is not included in this repository.
 
 Download from:
 
 👉 [Releases → stock_shap dataset]
 
-**Features include:**
+### Columns
 
-* Multi-horizon returns (`ret_1d`, `ret_3d`, `ret_10d`)
-* Momentum (`roc_20`)
-* Trend (`ema_slope`, `ma_slope`)
-* Relative strength (`board_rs_20d`)
-* Mean-reversion (`bias_60`)
-* Cross-sectional ranking features
+Index([
+'date', 'ticker', 'r_future_5', 'r_past_10',
+'ret_1d', 'ret_3d', 'ret_5d', 'ret_10d',
+'momentum_change',
+'ret_1d_minus_5d', 'ret_3d_minus_10d', 'ret_1d_minus_3d',
+'roc_20',
+'ema30_slope_vr', 'ema30_slope', 'ma30_slope',
+'bias_60_vr', 'bias_60',
+'board_rank_20d_pct', 'board_rs_20d',
+'ema60_slope', 'ema90_slope', 'ema180_slope',
+'ma60_slope', 'ma180_slope',
+'macro_regime_3', 'micro_sentiment_ema5',
+'trend60', 'breadth_mom',
+'vol20', 'dispersion', 'high20_ratio',
+'所属行业'
+])
+
+### Target
+
+The prediction target is defined as:
+
+```text
+regime_binary = 1 if r_future_5 > 0.01 else 0
+```
+---
+---
+
+# ✅ 第二块：Feature Engineering（核心加分🔥）
+
+结合你代码（不是瞎写的，是从代码来的）👇  
+:contentReference[oaicite:0]{index=0}
+
+```markdown
+## 🧪 Feature Engineering
+
+Feature construction follows a combination of **momentum, trend, and mean-reversion signals**.
+
+### 1. Return-based Features
+
+- `ret_1d`, `ret_3d`, `ret_5d`, `ret_10d`
+- Capture short- and medium-term returns
 
 ---
+
+### 2. Delta Features (automatically constructed)
+
+The following features are generated in the data pipeline:
+
+- `ret_1d_minus_5d = ret_1d - ret_5d`
+- `ret_3d_minus_10d = ret_3d - ret_10d`
+- `ret_1d_minus_3d = ret_1d - ret_3d`
+
+These features capture **acceleration and trend change**.
+
+---
+
+### 3. Momentum Features
+
+- `roc_20`
+- `momentum_change`
+
+Used to measure trend strength and continuation.
+
+---
+
+### 4. Trend Features
+
+- EMA slopes:  
+  `ema30_slope`, `ema60_slope`, `ema90_slope`, `ema180_slope`
+
+- MA slopes:  
+  `ma30_slope`, `ma60_slope`, `ma180_slope`
+
+These features reflect **direction and strength of trends**.
+
+---
+
+### 5. Mean Reversion Features
+
+- `bias_60`
+- `bias_60_vr`
+
+Capture price deviation from long-term averages.
+
+---
+
+### 6. Cross-sectional Features
+
+- `board_rank_20d_pct`
+- `board_rs_20d`
+
+Measure **relative strength within the market**.
+
+---
+
+### 7. Market & Breadth Features
+
+- `macro_regime_3`
+- `trend60`
+- `breadth_mom`
+- `dispersion`
+- `vol20`
+- `high20_ratio`
+
+Provide **market-wide context and regime information**.
+
+---
+
+### Final Feature Set
+
+The final training feature set is selected from a predefined feature group in the pipeline:
+
+- `BASELINE_PLUS_LONGER_TREND_RAW_FEATURES`
+
+and processed through:
+
+- Missing value filtering
+- Time-based split
+- Quantile clipping (to remove outliers)
 
 ## ⚙️ Pipeline
 
