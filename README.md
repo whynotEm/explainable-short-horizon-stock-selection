@@ -220,45 +220,53 @@ and processed through:
 ---
 ## 📊 Model Performance
 
-### Overall Comparison
+### Primary Selection Metric
 
-![Top5 Return](figures/bar_top5_future_return_all.png)
+![Top1 Return](figures/bar_top1_future_return_all.png)
 
-> XGBoost and LightGBM achieve the highest Top 5% future return, indicating strong ranking ability for identifying high-return stocks.
-
----
-
-![Top5 Hit Rate](figures/bar_top5_hit_rate_all.png)
-
-> Tree-based models consistently outperform others in hit rate, suggesting better classification of positive-return opportunities.
+> We use Top 1% future return as the primary model selection metric.  
+> XGBoost achieves the strongest performance on this metric, indicating superior ability to identify the highest-return opportunities.
 
 ---
 
-### Grouped Comparison
+### Effect of Preprocessing
 
-![Grouped Return](figures/grouped_top5_future_return.png)
+![Grouped Top1 Return](figures/grouped_top1_future_return.png)
 
-> Z-score preprocessing slightly improves performance for some models, but tree-based models remain robust across preprocessing methods.
+> Z-score preprocessing improves Top1 return for some models, especially XGBoost, indicating sharper ranking of extreme winners.
 
 ---
 
-![Grouped AUC](figures/grouped_auc.png)
+![Grouped Top1 Hit Rate](figures/grouped_top1_hit_rate.png)
 
-> MLP and Logistic Regression benefit more from standardization, while tree-based models are relatively insensitive to preprocessing.
- ## 📊 Model Performance Analysis
+> Raw features generally achieve higher hit rates, suggesting stronger classification stability compared to standardized inputs.
+
+---
+
+### Multi-Metric Comparison
+
+![Heatmap](figures/heatmap_model_preprocess_metrics_normalized.png)
+
+> The heatmap highlights a clear trade-off:  
+> - Z-score preprocessing improves Top1 return (selection sharpness)  
+> - Raw features perform better on accuracy and hit-rate metrics (prediction stability)
+
+---
+
+## 📊 Model Performance Analysis
 
 Several key patterns emerge from the results:
+
+- **Trade-off between return and stability**  
+  Z-score preprocessing enhances Top1 return, while raw features improve hit rate and accuracy.
 
 - **Tree-based models dominate return-based metrics**  
   XGBoost and LightGBM consistently achieve the highest Top-K returns.
 
 - **AUC is not aligned with investment performance**  
-  Models with higher AUC (e.g., MLP) do not necessarily deliver better Top-K returns.
+  Models with higher AUC do not necessarily deliver better Top-K returns.
 
-- **Preprocessing mainly affects linear and neural models**  
-  Standardization improves Logistic Regression and MLP significantly, while tree models remain stable.
-
-> These findings confirm that **ranking ability is more important than classification accuracy** in stock selection.
+> These findings confirm that **ranking ability (Top1 return) is more important than classification accuracy** in stock selection.
 ## 🔍 SHAP Analysis
 
 We select **XGBoost (raw features)** as the final model based on Top 1% return.
