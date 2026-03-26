@@ -69,7 +69,7 @@ Index([
 'macro_regime_3', 'micro_sentiment_ema5',
 'trend60', 'breadth_mom',
 'vol20', 'dispersion', 'high20_ratio',
-'所属行业'
+'所属行业'-->industry
 ])
 
 ### Target
