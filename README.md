@@ -230,13 +230,18 @@ Train models:
 ```bash
 python train_model_compare.py
 ```
-
-Compare preprocessing:
-
 ```bash
 python train_model_compare_standard.py
 ```
 
+Compare preprocessing:
+
+```bash
+python train_model_compare.py
+```
+```bash
+python train_model_compare_standard.py
+```
 Run SHAP analysis:
 
 ```bash
