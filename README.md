@@ -256,7 +256,7 @@ python shap_analysis.py
 * Focus on **Top-K return (practical trading metric)**
 * Multi-model comparison
 * SHAP interpretability
-* Stable feature importance across years
+* Stable feature importance across years.
 
 ---
 
