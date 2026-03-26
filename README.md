@@ -309,7 +309,22 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 > The model captures a combination of:  
 > **Momentum + Trend + Mean Reversion**
 
+## 🧾 Final Summary
 
+This project demonstrates that:
+
+- **Tree-based models (especially XGBoost) are highly effective for short-horizon stock selection**
+- **Top-K return is a more practical objective than classification accuracy**
+- **Model interpretability (via SHAP) provides meaningful financial insights**
+
+The model captures a combination of:
+
+- Momentum signals (trend continuation)
+- Trend signals (directional strength)
+- Mean-reversion signals (overextension correction)
+
+> Overall, this framework shows that combining **machine learning + financial intuition + interpretability** can lead to robust and explainable stock selection strategies.
+> 
 ## 📂 Project Structure
 
 ```text
