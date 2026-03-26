@@ -116,7 +116,7 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 
 ### Global Feature Importance
 
-![Global SHAP](figures/global_shap_bar.png)
+![Global SHAP](shap_outputs_xgboost_raw/global_shap_bar.png)
 
 
 ---
