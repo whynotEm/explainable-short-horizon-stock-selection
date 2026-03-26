@@ -305,17 +305,44 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 
 ## ⭐ Key Insights
 
-- **Momentum effect**  
-  High `board_rs_20d`, `roc_20` → higher probability of future gains  
+- **Momentum dominance**  
+  Features such as `board_rs_20d` and `roc_20` show strong positive contributions, indicating that stocks with strong recent performance tend to continue outperforming in the short horizon.
 
-- **Trend effect**  
-  Positive slope features (EMA / MA) → bullish signals  
+- **Trend continuation**  
+  Positive slope features (e.g., `ema30_slope`, `ema60_slope`, `ma30_slope`) are associated with higher predicted returns, suggesting that the model effectively captures ongoing trend dynamics.
 
-- **Mean reversion**  
-  High `bias_60` → negative contribution  
+- **Mean reversion effect**  
+  Higher values of `bias_60` contribute negatively, implying that overextended stocks are more likely to revert rather than continue rising.
 
-> The model captures a combination of:  
-> **Momentum + Trend + Mean Reversion**
+> Overall, the model learns a hybrid structure combining:  
+> **Momentum (continuation) + Trend (direction) + Mean Reversion (correction)**
+>
+> ## 🔥 Why XGBoost (raw)?
+
+Although different preprocessing methods show mixed performance across metrics, we select **XGBoost with raw features** as the final model.
+
+### Key observations:
+
+- **Raw features dominate in tree-based models**  
+  From the heatmap and grouped comparisons, raw inputs consistently achieve the best performance across most metrics (accuracy, hit rate, and AUC) for tree-based models.
+
+- **Z-score improves extreme cases but reduces stability**  
+  Z-score preprocessing slightly improves Top 1% return in some cases, but often leads to weaker performance in broader metrics such as Top 3% / Top 5% return and hit rate.
+
+- **Trade-off between sharpness and robustness**  
+  - Z-score → more aggressive selection (better Top1)
+  - Raw → more stable and consistent performance across samples
+
+### Final decision:
+
+We choose **XGBoost (raw)** because it provides a better balance between:
+
+- Strong Top 1% return performance
+- Higher stability across multiple evaluation metrics
+- Robust behavior without relying on feature scaling
+
+> This also aligns with theory:  
+> Tree-based models are inherently **scale-invariant**, and therefore do not benefit significantly from normalization.
 
 ## 🧾 Final Summary
 
