@@ -123,9 +123,9 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 
 ### SHAP Summary Plot
 
-```markdown
+
 ![SHAP Summary](shap_outputs_xgboost_raw/global_shap_summary.png)
-```
+
 
 ---
 
@@ -150,10 +150,10 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 
 ### Stability Across Years
 
-```markdown
-![SHAP 2023](figures/year_2023_shap_bar.png)
-![SHAP 2024](figures/year_2024_shap_bar.png)
-```
+
+![SHAP 2023](shap_outputs_xgboost_raw/year_2023_shap_bar.png)
+![SHAP 2024](shap_outputs_xgboost_raw/year_2024_shap_bar.png)
+
 
 Feature importance remains consistent across years, indicating stable patterns rather than overfitting.
 
