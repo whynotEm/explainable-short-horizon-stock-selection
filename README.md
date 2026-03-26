@@ -80,14 +80,7 @@ The prediction target is defined as:
 regime_binary = 1 if r_future_5 > 0.01 else 0
 ```
 ---
----
 
-# ✅ 第二块：Feature Engineering（核心加分🔥）
-
-结合你代码（不是瞎写的，是从代码来的）👇  
-:contentReference[oaicite:0]{index=0}
-
-```markdown
 ## 🧪 Feature Engineering
 
 Feature construction follows a combination of **momentum, trend, and mean-reversion signals**.
