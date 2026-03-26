@@ -109,7 +109,21 @@ Download from:
 > Classification accuracy does not directly translate to investment performance.
 
 ---
+## 📊 Model Performance
 
+### Overall Comparison
+
+![Top5 Return](figures/bar_top5_future_return_all.png)
+
+![Top5 Hit Rate](figures/bar_top5_hit_rate_all.png)
+
+---
+
+### Grouped Comparison
+
+![Grouped Return](figures/grouped_top5_future_return.png)
+
+![Grouped AUC](figures/grouped_auc.png)
 ## 🔍 SHAP Analysis
 
 We select **XGBoost (raw features)** as the final model based on Top 1% return.
@@ -118,14 +132,24 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 
 ![Global SHAP](shap_outputs_xgboost_raw/global_shap_bar.png)
 
-
 ---
 
 ### SHAP Summary Plot
 
-
 ![SHAP Summary](shap_outputs_xgboost_raw/global_shap_summary.png)
 
+---
+### Top 1% Feature Importance
+
+![Top1 SHAP](shap_outputs_xgboost_raw/top1_shap_bar.png)
+
+---
+
+### Stability Across Years
+
+![SHAP 2023](shap_outputs_xgboost_raw/year_2023_shap_bar.png)
+![SHAP 2024](shap_outputs_xgboost_raw/year_2024_shap_bar.png)
+![SHAP 2025](shap_outputs_xgboost_raw/year_2025_shap_bar.png)
 
 ---
 
@@ -163,20 +187,33 @@ Feature importance remains consistent across years, indicating stable patterns r
 
 ```text
 .
-├── figures/
-├── shap_outputs_xgboost_raw/
-├── config.py
-├── data_pipeline.py
-├── data_pipeline_standard.py
-├── evaluate.py
-├── models.py
-├── plot_figure.py
-├── shap_analysis.py
-├── train_model_compare.py
-├── train_model_compare_standard.py
+├── figures/                         # Model performance plots
+│   ├── bar_top5_future_return_all.png
+│   ├── bar_top5_hit_rate_all.png
+│   ├── grouped_auc.png
+│   └── grouped_top5_future_return.png
+│
+├── shap_outputs_xgboost_raw/        # SHAP results (final XGBoost model)
+│   ├── global_shap_bar.png
+│   ├── global_shap_summary.png
+│   ├── top1_shap_bar.png
+│   ├── year_2023_shap_bar.png
+│   ├── year_2024_shap_bar.png
+│   └── yearly_shap_importance.csv
+│
+├── model_compare_summary*.csv       # Model comparison results
+│
+├── config.py                        # Config & paths
+├── data_pipeline.py                 # Raw feature pipeline
+├── data_pipeline_standard.py        # Standardized / z-score pipeline
+├── evaluate.py                      # Evaluation metrics
+├── models.py                        # Model definitions
+├── plot_figure.py                   # Visualization scripts
+├── shap_analysis.py                 # SHAP analysis
+├── train_model_compare.py           # Model comparison (raw)
+├── train_model_compare_standard.py  # Model comparison (preprocessed)
 ├── requirements.txt
-├── README.md
-```
+└── README.md
 
 ---
 
