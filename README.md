@@ -190,7 +190,9 @@ and processed through:
 
 * Logistic Regression
 * Random Forest
-* LightGBM
+* Lightgbm
+* Lightgbm_conservative
+* Lightgbm_shallow
 * XGBoost
 * CatBoost
 * MLP
@@ -222,7 +224,13 @@ and processed through:
 
 ![Top5 Return](figures/bar_top5_future_return_all.png)
 
+> XGBoost and LightGBM achieve the highest Top 5% future return, indicating strong ranking ability for identifying high-return stocks.
+
+---
+
 ![Top5 Hit Rate](figures/bar_top5_hit_rate_all.png)
+
+> Tree-based models consistently outperform others in hit rate, suggesting better classification of positive-return opportunities.
 
 ---
 
@@ -230,7 +238,27 @@ and processed through:
 
 ![Grouped Return](figures/grouped_top5_future_return.png)
 
+> Z-score preprocessing slightly improves performance for some models, but tree-based models remain robust across preprocessing methods.
+
+---
+
 ![Grouped AUC](figures/grouped_auc.png)
+
+> MLP and Logistic Regression benefit more from standardization, while tree-based models are relatively insensitive to preprocessing.
+ ## 📊 Model Performance Analysis
+
+Several key patterns emerge from the results:
+
+- **Tree-based models dominate return-based metrics**  
+  XGBoost and LightGBM consistently achieve the highest Top-K returns.
+
+- **AUC is not aligned with investment performance**  
+  Models with higher AUC (e.g., MLP) do not necessarily deliver better Top-K returns.
+
+- **Preprocessing mainly affects linear and neural models**  
+  Standardization improves Logistic Regression and MLP significantly, while tree models remain stable.
+
+> These findings confirm that **ranking ability is more important than classification accuracy** in stock selection.
 ## 🔍 SHAP Analysis
 
 We select **XGBoost (raw features)** as the final model based on Top 1% return.
@@ -239,16 +267,23 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 
 ![Global SHAP](shap_outputs_xgboost_raw/global_shap_bar.png)
 
+> The most important features are dominated by momentum and relative strength signals, such as `board_rs_20d`, `roc_20`, and `bias_60`.
+
 ---
 
 ### SHAP Summary Plot
 
 ![SHAP Summary](shap_outputs_xgboost_raw/global_shap_summary.png)
 
+> High values of momentum-related features tend to push predictions upward, while mean-reversion features show negative contributions.
+
 ---
+
 ### Top 1% Feature Importance
 
 ![Top1 SHAP](shap_outputs_xgboost_raw/top1_shap_bar.png)
+
+> In the highest-return group, momentum and trend signals become even more dominant, highlighting their importance in extreme winners.
 
 ---
 
@@ -258,37 +293,22 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 ![SHAP 2024](shap_outputs_xgboost_raw/year_2024_shap_bar.png)
 ![SHAP 2025](shap_outputs_xgboost_raw/year_2025_shap_bar.png)
 
----
+> Feature importance remains highly consistent across years, suggesting stable predictive patterns rather than overfitting.
 
-### Key Insights
+## ⭐ Key Insights
 
-* **Momentum effect**
+- **Momentum effect**  
+  High `board_rs_20d`, `roc_20` → higher probability of future gains  
 
-  * High `board_rs_20d`, `roc_20` → higher probability of future gains
+- **Trend effect**  
+  Positive slope features (EMA / MA) → bullish signals  
 
-* **Trend effect**
+- **Mean reversion**  
+  High `bias_60` → negative contribution  
 
-  * Positive slope features → bullish signal
-
-* **Mean reversion**
-
-  * High `bias_60` → negative contribution
-
-> The model captures a combination of:
+> The model captures a combination of:  
 > **Momentum + Trend + Mean Reversion**
 
----
-
-### Stability Across Years
-
-
-![SHAP 2023](shap_outputs_xgboost_raw/year_2023_shap_bar.png)
-![SHAP 2024](shap_outputs_xgboost_raw/year_2024_shap_bar.png)
-
-
-Feature importance remains consistent across years, indicating stable patterns rather than overfitting.
-
----
 
 ## 📂 Project Structure
 
@@ -337,6 +357,7 @@ Train models:
 ```bash
 python train_model_compare.py
 ```
+
 ```bash
 python train_model_compare_standard.py
 ```
