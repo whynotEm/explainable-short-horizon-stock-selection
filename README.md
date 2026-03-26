@@ -124,7 +124,7 @@ We select **XGBoost (raw features)** as the final model based on Top 1% return.
 ### SHAP Summary Plot
 
 ```markdown
-![SHAP Summary](figures/global_shap_summary.png)
+![SHAP Summary](shap_outputs_xgboost_raw/global_shap_summary.png)
 ```
 
 ---
