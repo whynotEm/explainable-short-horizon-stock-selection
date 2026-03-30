@@ -1,6 +1,6 @@
 # Explainable Short-Horizon Stock Selection
 
-A machine learning framework for short-horizon stock selection, optimized for **Top-K return performance** and enhanced with **SHAP-based interpretability**.
+A machine learning framework for short-horizon stock selection, optimized for **Top-K return performance** and enhanced with **SHAP-based interpretability**. 
 
 ---
 ## 📌 Project Overview
